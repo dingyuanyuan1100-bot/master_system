@@ -1,0 +1,18 @@
+fastapi == 0.109.0
+uvicorn[standard] == 0.27.0
+pydantic == 2.5.3
+pydantic-settings == 2.1.0
+sqlalchemy[asyncio] == 2.0.25
+aiomysql == 0.2.0
+alembic == 1.13.1
+python-dotenv == 1.0.0
+passlib[bcrypt] == 1.7.4
+bcrypt == 4.0.1
+
+建表操作
+alembic init alembic
+迁移脚本
+alembic revision --autogenerate -m "init goods and user tables"
+执行建表命令
+alembic upgrade head
+
