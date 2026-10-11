@@ -8,4 +8,4 @@ class User(BaseModel):
 
     name     : Mapped[str]      = mapped_column(String(50),nullable=False,comment="用户名")
     password : Mapped[str]      = mapped_column(String(255),nullable=False,comment="用户密码")
-    email    : Mapped[str|None] = mapped_column(String(100),comment="用户邮箱")
+    phone    : Mapped[str|None] = mapped_column(String(100),comment="用户手机号")

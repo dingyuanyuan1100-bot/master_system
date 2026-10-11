@@ -16,3 +16,6 @@ alembic revision --autogenerate -m "init goods and user tables"
 执行建表命令
 alembic upgrade head
 
+py常用加密算法
+passlib
+

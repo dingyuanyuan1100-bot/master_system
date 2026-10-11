@@ -1,6 +1,6 @@
 from functools import lru_cache
-
 from pydantic_settings import BaseSettings
+
 
 class Settings(BaseSettings):
     "应用配置"
@@ -9,6 +9,12 @@ class Settings(BaseSettings):
 
     #其他配置
     DEBUG: bool = True
+
+    #JWT配置
+    SECRET_KEY                  : str = "your-secret-key-here-change-it-in-production"    #签名密钥
+    ALGORITHM                   : str = "HS256"                                           #签名算法
+    ACCESS_TOKEN_EXPIRE_MINUTES : int = 60 * 24                                           #token有效期24小时
+
     class Config:
         env_file = '.env'
 
