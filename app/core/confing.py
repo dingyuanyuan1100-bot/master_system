@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     DEBUG: bool = True
 
     #Redis配置
-    REDIS_URL: str = 'redis://127.0.0.1:6379'
+    REDIS_URL: str = 'redis://:123456@127.0.0.1:6379'
 
     #JWT配置
     SECRET_KEY                  : str = "your-secret-key-here-change-it-in-production"    #签名密钥

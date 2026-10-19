@@ -46,4 +46,9 @@ redis与mysql的区别
 用户请求—>查商品表—>检查时间/库存—>查订单表(防重)—>UPDATE扣库存—>INSERT订单
 
 
-19.安装redis并启动，然后安装库 redis[hiredis]==5.0.8,接着在confing里面配置redis
+19.安装redis并启动
+   安装库 redis[hiredis]==5.0.8
+   在confing里面配置redis
+   在db里面创建redis，设置redis连接管理
+   在run.py设置统一管理生命周期事件，这里管理redis连接
+
