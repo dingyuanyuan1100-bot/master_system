@@ -3,14 +3,18 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
+
 class OrderResponse(BaseModel):
     """把整个订单返回给前端"""
     id:int
     user_id:int
-    goods_id:int
-    goods_name:str
-    goods_price:float
+    order_id:int
+    order_no:str
+    order_name:str
+    good_price:float
+    order_price:float
     status:int
+
     create_time:datetime
     update_time:datetime
 
@@ -20,7 +24,12 @@ class OrderResponse(BaseModel):
 
 class SeckillResult(BaseModel):
     """秒杀成功后专门返回给前端看的关键信息"""
-    order_id:int
-    order_name:str
-    order_price:float
-    massage:str
+    goods_id: int
+    order_id: int
+    order_no: str
+    order_status: int
+    create_datetime: datetime
+    update_datetime: datetime
+    order_name: str
+    order_price: float
+    message: str

@@ -5,6 +5,14 @@ from app.db.base import Base, BaseModel
 
 class Orders(BaseModel):
     __tablename__ = 'orders'
+    #订单编号（和自增id 分开，就算订单达到百万级，也不会泄露卖了多少单）
+    order_no: Mapped[str] = mapped_column(
+        String(32),
+        unique=True,
+        nullable=False,
+        comment="订单编号"
+    )
+
     #用外键指向下单的人id
     user_id : Mapped[int] = mapped_column(
         Integer,
