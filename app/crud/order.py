@@ -1,6 +1,4 @@
-from fastapi import Depends
 from sqlalchemy import select,values
-from app import deps
 from app.crud.base import CRUDBase
 from app.models import User
 from app.models.order import Orders
@@ -25,7 +23,7 @@ class CRUDOrder(CRUDBase[Orders]):
             .limit(limit)                              #最多拿多少条
         )
         return result.scalars().all()                   #把结果转换成oreders对象列表
-
+    #根据user_id和商品id查订单
     async def get_order_by_id(self,
                               db:AsyncSession,
                               *,
@@ -36,7 +34,22 @@ class CRUDOrder(CRUDBase[Orders]):
             select(self.model)
             .where(self.model.user_id == current_user.id,self.model.id == order_id)
         )
-        return result.scalars().one_or_none()
+        return result.scalars().all()
+    async def get_active_order_by_id(self,
+                                     db: AsyncSession,
+                                     *,
+                                     current_user: User,
+                                     good_id: int,
+                                     ):
+        result = await db.execute(
+            select(self.model)
+            .where(
+                self.model.user_id == current_user.id,
+                self.model.product_id == good_id,
+                self.model.status != -1
+            )
+        )
+        return result.scalars().all()
 
 
 
