@@ -7,7 +7,7 @@ engine = create_async_engine(
     pool_size=10,           #常驻连接池
     max_overflow=5,         #常驻满了后可以额外多开的连接池数量
     pool_timeout=30,        #超时断开，防止僵尸进程
-    echo=True,              #打印sql语句用的
+    echo=False,              #打印sql语句用的
 
 )
 #创建会话

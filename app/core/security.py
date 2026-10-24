@@ -1,3 +1,4 @@
+import asyncio
 from datetime import timedelta, datetime, timezone
 from typing import Optional
 from jose import jwt, JWTError
@@ -6,18 +7,18 @@ from app.core.confing import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-def verify_password(plain_password, hashed_password):
+async def verify_password(plain_password, hashed_password):
     #验证密码
-    return pwd_context.verify(plain_password, hashed_password)
+    return await asyncio.to_thread(pwd_context.verify, plain_password, hashed_password)
 
-def get_password_hash(password):
+async def get_password_hash(password):
     """
     加密密码（bcrypt最大支持72个字节 超长的密码会被截断）
     这里用[:72], 显式截断  避免新版本 bcrypt4.1+ 抛异常
     """
-    return pwd_context.hash(password[:72])
+    return await asyncio.to_thread(pwd_context.hash,password[:72])
 
-def create_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
+async def create_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """
 
     :param data:         放进 token 的数据
@@ -33,7 +34,7 @@ def create_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 #Token验证
-def verify_token(token: str)->Optional[dict]:
+async def verify_token(token: str)->Optional[dict]:
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         return payload   # 成功：返回解析出的 payload

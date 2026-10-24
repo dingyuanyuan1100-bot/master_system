@@ -12,7 +12,7 @@ class UserCRUD(CRUDBase[User]):
     async def create(self, db: AsyncSession, *, obj_in: dict) -> User:
         """创建用户：强制密码哈希"""
         user_obj = self.model(**obj_in) #此处的model是继承于CRUD基类里面的
-        user_obj.password = get_password_hash(user_obj.password)   # 用对象属性，不用 obj_in['password']
+        user_obj.password = await get_password_hash(user_obj.password)   # 用对象属性，不用 obj_in['password']
         db.add(user_obj)
         await db.commit()
         await db.refresh(user_obj)

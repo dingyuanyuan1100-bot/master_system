@@ -20,7 +20,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(),db:AsyncSession
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    if not verify_password(form_data.password, result.password):
+    if not await verify_password(form_data.password, result.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="用户名或密码错误",
@@ -31,7 +31,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(),db:AsyncSession
     #设置JWT
     access_token_expires = timedelta( minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES )#计算token存活时间
 
-    access_token = create_token(
+    access_token = await create_token(
         data={"sub":str(result.id)},        #往token里面塞的数据
         expires_delta=access_token_expires, #存活时长
     )

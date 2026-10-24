@@ -29,7 +29,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme),db: AsyncSession 
     )
 
     #验证token
-    payload = verify_token(token)
+    payload = await verify_token(token)
     if payload is None:
         raise credentials_exception
 

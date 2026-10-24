@@ -34,7 +34,7 @@ class CRUDOrder(CRUDBase[Orders]):
             select(self.model)
             .where(self.model.user_id == current_user.id,self.model.id == order_id)
         )
-        return result.scalars().all()
+        return result.scalars().one_or_none()
     async def get_active_order_by_id(self,
                                      db: AsyncSession,
                                      *,
@@ -49,7 +49,7 @@ class CRUDOrder(CRUDBase[Orders]):
                 self.model.status != -1
             )
         )
-        return result.scalars().all()
+        return result.scalars().one_or_none()
 
 
 
